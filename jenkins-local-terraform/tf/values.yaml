@@ -1,0 +1,30 @@
+controller:
+  image: jenkins-local
+  tag: latest
+  imagePullPolicy: Never
+  installPlugins: false
+
+jenkins:
+  systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
+  
+  nodes:
+    - permanent:
+        name: "static-agent"
+        remoteFS: "/home/jenkins"
+        launcher:
+          inbound:
+            workDirSettings:
+              disabled: true
+              failIfWorkDirIsMissing: false
+              internalDir: "remoting"
+              workDirPath: "/tmp"
+
+  slaveAgentPort: 50000
+  agentProtocols:
+    - "jnlp2"
+
+tool:
+  git:
+    installations:
+      - name: git
+        home: /usr/local/bin/git
